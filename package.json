@@ -11,10 +11,27 @@
         "Other"
     ],
     "activationEvents": [
-        "onView:gemma-chat-view"
+        "onView:gemma-chat-view",
+        "onCommand:gemma.quickAsk"
     ],
     "main": "./extension.js",
     "contributes": {
+        "commands": [
+            {
+                "command": "gemma.quickAsk",
+                "title": "Gemma 4: Quick Ask",
+                "icon": "media/icon.svg"
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "gemma.quickAsk",
+                    "group": "navigation",
+                    "when": "true"
+                }
+            ]
+        },
         "viewsContainers": {
             "activitybar": [
                 {
