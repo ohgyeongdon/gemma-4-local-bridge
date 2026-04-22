@@ -149,6 +149,15 @@ textarea {
     padding: 6px 0;
     max-height: 120px;
     min-height: 20px;
+    overflow-y: hidden; /* 입력창 내부 스크롤바 숨김 */
+}
+
+/* 입력창 내부 스크롤바 및 리사이저 강제 숨김 (Chrome/Safari) */
+textarea::-webkit-scrollbar {
+    display: none;
+}
+textarea::-webkit-resizer {
+    display: none;
 }
 
 textarea:focus { outline: none; }
