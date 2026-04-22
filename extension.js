@@ -7,8 +7,8 @@ function activate(context) {
         vscode.window.registerWebviewViewProvider('gemma-chat-view', provider)
     );
 
-    // Quick Ask Command
-    let disposable = vscode.commands.registerCommand('gemma.quickAsk', async () => {
+    // Open Command
+    let disposable = vscode.commands.registerCommand('gemma.open', async () => {
         const result = await vscode.window.showInputBox({
             prompt: 'Gemma 4에게 질문하세요',
             placeHolder: '예: 이 코드의 로직을 설명해줘'

@@ -12,21 +12,21 @@
     ],
     "activationEvents": [
         "onView:gemma-chat-view",
-        "onCommand:gemma.quickAsk"
+        "onCommand:gemma.open"
     ],
     "main": "./extension.js",
     "contributes": {
         "commands": [
             {
-                "command": "gemma.quickAsk",
-                "title": "Gemma 4: Quick Ask",
+                "command": "gemma.open",
+                "title": "Gemma 4: Open",
                 "icon": "media/icon.svg"
             }
         ],
         "menus": {
             "editor/title": [
                 {
-                    "command": "gemma.quickAsk",
+                    "command": "gemma.open",
                     "group": "navigation",
                     "when": "true"
                 }
