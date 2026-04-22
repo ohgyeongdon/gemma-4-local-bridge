@@ -75,9 +75,7 @@ class GemmaViewProvider {
                         <div class="input-area">
                             <div class="input-wrapper">
                                 <textarea id="user-input" placeholder="Gemma에게 질문하세요..." rows="1"></textarea>
-                                <button id="send-btn">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                </button>
+                                <button id="send-btn"></button>
                             </div>
                         </div>
                     </main>
