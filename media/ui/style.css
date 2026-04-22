@@ -1,14 +1,15 @@
 :root {
-    --bg-main: var(--vscode-editor-background); /* 에디터 배경색과 동기화 */
+    --bg-main: #00212b; /* 대표님께서 첨부해주신 전용 배경색 */
     --accent: #7c3aed;
     --accent-hover: #6d28d9;
-    --text-primary: var(--vscode-editor-foreground); /* 에디터 글자색과 동기화 */
-    --text-secondary: var(--vscode-descriptionForeground);
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
     --glass: rgba(255, 255, 255, 0.03);
-    --border: rgba(124, 58, 237, 0.4);
-    --msg-user: rgba(124, 58, 237, 0.1);
-    --msg-ai: var(--vscode-sideBar-background);
-    --input-bg: var(--vscode-input-background);
+    --border-normal: rgba(124, 58, 237, 0.4); /* 평상시 60% 투명 (불투명도 0.4) */
+    --border-focus: rgba(124, 58, 237, 1.0);  /* 클릭 시 0% 투명 (불투명도 1.0) */
+    --msg-user: rgba(124, 58, 237, 0.15);
+    --msg-ai: rgba(255, 255, 255, 0.03);
+    --input-bg: rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -39,7 +40,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    opacity: 0.15;
+    opacity: 0.1;
     pointer-events: none;
     transition: opacity 0.5s ease;
 }
@@ -79,14 +80,8 @@ body {
     width: 100%;
 }
 
-/* Ultra Slim Scrollbar (50% thinner) */
-.chat-window::-webkit-scrollbar {
-    width: 3px;
-}
-.chat-window::-webkit-scrollbar-thumb {
-    background: rgba(124, 58, 237, 0.4);
-    border-radius: 10px;
-}
+.chat-window::-webkit-scrollbar { width: 3px; }
+.chat-window::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
 
 /* Messages */
 .message {
@@ -116,7 +111,7 @@ body {
 .message.ai .content { background: var(--msg-ai); }
 .message.user .content { background: var(--msg-user); }
 
-/* Compact Floating Input Area */
+/* Floating Input Area */
 .input-area {
     position: absolute;
     bottom: 25px;
@@ -129,13 +124,20 @@ body {
 .input-wrapper {
     background: var(--input-bg);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--border); /* 보라색 60% */
-    border-radius: 6px; /* 70% 줄임 (20px -> 6px) */
-    padding: 6px 14px; /* 높이 30% 축소 효과 */
+    border: 1px solid var(--border-normal); /* 기본 60% 투명 */
+    border-radius: 6px;
+    padding: 0 14px; /* 상하 패딩을 0으로 하고 textarea에서 정렬 */
     display: flex;
-    align-items: center; /* 콤팩트한 배치를 위해 중앙 정렬 */
+    align-items: center; /* 상하 정중앙 정렬 */
+    min-height: 44px; /* 고정 최소 높이로 중앙 정렬 유도 */
     gap: 10px;
+    transition: all 0.3s ease;
     box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.6);
+}
+
+/* 입력창 포커스 시 인터랙션 */
+.input-wrapper:focus-within {
+    border-color: var(--border-focus); /* 투명도 0% */
 }
 
 textarea {
@@ -146,42 +148,42 @@ textarea {
     resize: none;
     font-family: inherit;
     font-size: 14px;
-    padding: 6px 0;
-    max-height: 120px;
-    min-height: 20px;
-    overflow-y: hidden; /* 입력창 내부 스크롤바 숨김 */
-}
-
-/* 입력창 내부 스크롤바 및 리사이저 강제 숨김 (Chrome/Safari) */
-textarea::-webkit-scrollbar {
-    display: none;
-}
-textarea::-webkit-resizer {
-    display: none;
+    line-height: 44px; /* min-height와 일치시켜 상하 중앙 정렬 */
+    height: 44px; /* 초기 높이 고정 */
+    max-height: 150px;
+    padding: 0;
+    transition: line-height 0.2s;
 }
 
 textarea:focus { outline: none; }
 
+/* 텍스트가 여러 줄일 경우 line-height 조정 */
+textarea:not(:placeholder-shown), 
+textarea:focus {
+    line-height: 1.6;
+    padding: 12px 0;
+    height: auto;
+}
+
 #send-btn {
     background: var(--accent);
     border: none;
-    width: 28px; /* 콤팩트하게 축소 */
+    width: 28px;
     height: 28px;
-    border-radius: 5px; /* 60% 줄임 (12px -> 5px) */
-    color: white;
+    border-radius: 5px;
+    opacity: 0.4; /* 평상시 60% 투명 */
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+}
+
+/* 입력창 포커스 시 버튼 선명하게 */
+.input-wrapper:focus-within #send-btn {
+    opacity: 1; /* 투명도 0% */
 }
 
 #send-btn:hover {
     background: var(--accent-hover);
 }
-
-/* Remove Arrow Icon */
-#send-btn svg { display: none; }
 
 .has-messages .central-logo {
     opacity: 0.02;
