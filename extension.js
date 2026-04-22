@@ -50,8 +50,8 @@ class GemmaViewProvider {
     _getHtmlForWebview(webview) {
         const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'ui', 'app.js'));
         const styleUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'ui', 'style.css'));
+        const logoUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'icon.svg'));
         
-        // We read the index.html but replace the links
         return `
             <!DOCTYPE html>
             <html lang="ko">
@@ -61,26 +61,23 @@ class GemmaViewProvider {
                 <title>Gemma 4 Sidebar</title>
                 <link rel="stylesheet" href="${styleUri}">
                 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
-                <style>
-                    body { height: 100vh; overflow: auto; }
-                    .sidebar { width: 100%; border-right: none; }
-                    .app-container { flex-direction: column; }
-                    .chat-interface { height: 100vh; }
-                </style>
             </head>
             <body>
                 <div class="app-container">
+                    <div class="central-logo">
+                        <img src="${logoUri}" alt="Gemma Logo">
+                        <h1>Gemma 4</h1>
+                    </div>
                     <main class="chat-interface">
                         <div class="chat-window" id="chat-window">
-                            <div class="message system">
-                                <div class="avatar">🤖</div>
-                                <div class="content">Gemma 4 사이드바가 활성화되었습니다.</div>
-                            </div>
+                            <!-- Messages will appear here -->
                         </div>
                         <div class="input-area">
                             <div class="input-wrapper">
                                 <textarea id="user-input" placeholder="Gemma에게 질문하세요..." rows="1"></textarea>
-                                <button id="send-btn">🚀</button>
+                                <button id="send-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                </button>
                             </div>
                         </div>
                     </main>

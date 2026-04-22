@@ -43,18 +43,14 @@ setInterval(checkStatus, 10000);
 
 // Add message to UI
 function addMessage(role, text) {
+    document.body.classList.add('has-messages');
     const msgDiv = document.createElement('div');
     msgDiv.className = `message ${role}`;
-    
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar';
-    avatar.textContent = role === 'ai' ? '💠' : '👤';
     
     const content = document.createElement('div');
     content.className = 'content';
     content.textContent = text;
     
-    msgDiv.appendChild(avatar);
     msgDiv.appendChild(content);
     chatWindow.appendChild(msgDiv);
     chatWindow.scrollTop = chatWindow.scrollHeight;
