@@ -3,6 +3,7 @@
     --accent: #7c3aed;
     --accent-hover: #6d28d9;
     --text-primary: #e2e8f0;
+    --text-input: #d2c9ff; /* 대표님께서 지정하신 타이핑 폰트 컬러 */
     --text-secondary: #94a3b8;
     --glass: rgba(255, 255, 255, 0.03);
     --border-normal: rgba(124, 58, 237, 0.4);
@@ -80,18 +81,8 @@ body {
     width: 100%;
 }
 
-/* Ultra Slim Scrollbar (70% smaller than standard) */
-.chat-window::-webkit-scrollbar {
-    width: 1.5px; /* 극도로 슬림하게 */
-}
-.chat-window::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-}
-.chat-window::-webkit-scrollbar-button {
-    height: 0; /* 방향키 숨김 또는 최소화 */
-    width: 0;
-}
+.chat-window::-webkit-scrollbar { width: 1.5px; }
+.chat-window::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
 
 /* Messages */
 .message {
@@ -135,12 +126,12 @@ body {
     background: var(--input-bg);
     backdrop-filter: blur(20px);
     border: 1px solid var(--border-normal);
-    border-radius: 6px;
-    padding: 0 14px;
+    border-radius: 50px; /* 라운드 100% (Pill Style) */
+    padding: 0 20px; /* 둥근 형태에 맞춰 좌우 패딩 증가 */
     display: flex;
     align-items: center;
-    min-height: 44px;
-    gap: 10px;
+    min-height: 46px;
+    gap: 12px;
     transition: all 0.3s ease;
     box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.6);
 }
@@ -153,12 +144,13 @@ textarea {
     flex: 1;
     background: transparent;
     border: none;
-    color: var(--text-primary);
+    color: var(--text-input); /* 연보라색(#d2c9ff) 적용 */
+    font-weight: 400; /* 레귤러 가중치 */
     resize: none;
     font-family: inherit;
     font-size: 14px;
-    line-height: 44px;
-    height: 44px;
+    line-height: 46px;
+    height: 46px;
     max-height: 150px;
     padding: 0;
     transition: line-height 0.2s;
@@ -170,16 +162,16 @@ textarea:focus { outline: none; }
 textarea:not(:placeholder-shown), 
 textarea:focus {
     line-height: 1.6;
-    padding: 12px 0;
+    padding: 13px 0;
     height: auto;
 }
 
 #send-btn {
     background: var(--accent);
     border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%; /* 원형으로 변경 */
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
     opacity: 0.4;
     cursor: pointer;
     display: flex;
@@ -195,7 +187,6 @@ textarea:focus {
 
 #send-btn:hover {
     background: var(--accent-hover);
-    transform: scale(1.1);
 }
 
 #send-btn svg {
