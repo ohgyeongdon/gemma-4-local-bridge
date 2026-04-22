@@ -7,19 +7,19 @@ function activate(context) {
         vscode.window.registerWebviewViewProvider('gemma-chat-view', provider)
     );
 
-    // Open Command
-    let disposable = vscode.commands.registerCommand('gemma.open', async () => {
-        const result = await vscode.window.showInputBox({
-            prompt: 'Gemma 4에게 질문하세요',
-            placeHolder: '예: 이 코드의 로직을 설명해줘'
-        });
+    // Open Command (Editor Tab)
+    let disposable = vscode.commands.registerCommand('gemma.open', () => {
+        const panel = vscode.window.createWebviewPanel(
+            'gemmaChat',
+            'Gemma 4 Chat',
+            vscode.ViewColumn.One,
+            {
+                enableScripts: true,
+                localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, 'media')]
+            }
+        );
 
-        if (result) {
-            // Focus Sidebar
-            vscode.commands.executeCommand('gemma-chat-view.focus');
-            // We can notify the provider to handle the message
-            provider.postMessageToWebview(result);
-        }
+        panel.webview.html = provider._getHtmlForWebview(panel.webview);
     });
 
     context.subscriptions.push(disposable);
