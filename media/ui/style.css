@@ -135,7 +135,7 @@ body {
     min-height: 46px;
     gap: 12px;
     transition: all 0.3s ease, border-radius 0.3s ease; /* 라운딩 변화 부드럽게 */
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5); /* 그림자 투명도 50% 적용 */
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3); /* 그림자 투명도 30% 적용 */
 }
 
 .input-wrapper:focus-within {
