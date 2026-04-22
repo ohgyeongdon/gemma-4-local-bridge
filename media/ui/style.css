@@ -1,13 +1,14 @@
 :root {
     --bg-main: transparent;
-    --accent: #7c3aed; /* 보라색 */
+    --accent: #7c3aed;
     --accent-hover: #6d28d9;
     --text-primary: #e2e8f0;
     --text-secondary: #94a3b8;
     --glass: rgba(255, 255, 255, 0.03);
     --border: rgba(255, 255, 255, 0.08);
-    --msg-user: rgba(124, 58, 237, 0.2);
+    --msg-user: rgba(124, 58, 237, 0.15);
     --msg-ai: rgba(255, 255, 255, 0.03);
+    --input-bg: rgba(30, 41, 59, 0.7); /* 플로팅 창 배경 */
 }
 
 * {
@@ -21,7 +22,7 @@ body {
     background-color: var(--bg-main);
     color: var(--text-primary);
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* 전체 스크롤 차단 */
 }
 
 .app-container {
@@ -55,7 +56,6 @@ body {
     font-size: 24px;
     letter-spacing: 2px;
     font-weight: 700;
-    color: var(--text-primary);
 }
 
 /* Chat Interface */
@@ -63,23 +63,34 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    position: relative;
     z-index: 1;
 }
 
 .chat-window {
     flex: 1;
-    overflow-y: auto;
-    padding: 20px;
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    padding: 40px 20px 120px; /* 하단 여백 충분히 확보 (플로팅 창 공간) */
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     scroll-behavior: smooth;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     width: 100%;
 }
 
-/* Messages - Minimalist */
+/* Custom Scrollbar */
+.chat-window::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-window::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
+
+/* Messages */
 .message {
     display: flex;
     flex-direction: column;
@@ -92,49 +103,54 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.message.user {
-    align-self: flex-end;
-}
-
-.message.ai {
-    align-self: flex-start;
-}
+.message.user { align-self: flex-end; }
+.message.ai { align-self: flex-start; }
 
 .content {
-    padding: 12px 16px;
-    border-radius: 12px;
+    padding: 14px 18px;
+    border-radius: 16px;
     line-height: 1.6;
-    font-size: 14px;
+    font-size: 15px;
     white-space: pre-wrap;
     border: 1px solid var(--border);
 }
 
 .message.ai .content { 
     background: var(--msg-ai); 
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
 }
 
 .message.user .content { 
     background: var(--msg-user); 
-    border-color: rgba(124, 58, 237, 0.3);
+    border-color: rgba(124, 58, 237, 0.2);
 }
 
-/* Input Area */
+/* Floating Input Area */
 .input-area {
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 760px;
+    z-index: 10;
 }
 
 .input-wrapper {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
+    backdrop-filter: blur(20px);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 8px 12px;
+    border-radius: 20px;
+    padding: 10px 16px;
     display: flex;
     align-items: flex-end;
-    gap: 10px;
+    gap: 12px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    transition: border-color 0.3s;
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--accent);
 }
 
 textarea {
@@ -144,9 +160,10 @@ textarea {
     color: var(--text-primary);
     resize: none;
     font-family: inherit;
-    font-size: 14px;
-    padding: 8px 0;
-    max-height: 150px;
+    font-size: 15px;
+    padding: 10px 0;
+    max-height: 180px;
+    min-height: 24px;
 }
 
 textarea:focus { outline: none; }
@@ -154,27 +171,26 @@ textarea:focus { outline: none; }
 #send-btn {
     background: var(--accent);
     border: none;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
 }
 
 #send-btn:hover {
     background: var(--accent-hover);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
-#send-btn svg { width: 18px; height: 18px; }
+#send-btn svg { width: 20px; height: 20px; }
 
 /* Hide logo when chat starts */
-.chat-window:not(:empty) ~ .central-logo,
 .has-messages .central-logo {
-    opacity: 0.03;
+    opacity: 0.02;
 }
