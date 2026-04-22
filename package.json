@@ -1,0 +1,37 @@
+{
+    "name": "gemma-4-extension",
+    "displayName": "Gemma 4 Local AI",
+    "description": "Local Gemma 4 AI Bridge for Antigravity",
+    "version": "1.0.0",
+    "publisher": "Kodari",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onView:gemma-chat-view"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "gemma-explorer",
+                    "title": "Gemma 4",
+                    "icon": "media/icon.png"
+                }
+            ]
+        },
+        "views": {
+            "gemma-explorer": [
+                {
+                    "type": "webview",
+                    "id": "gemma-chat-view",
+                    "name": "Gemma 4 Chat"
+                }
+            ]
+        }
+    }
+}
