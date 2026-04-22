@@ -1,14 +1,14 @@
 :root {
-    --bg-main: transparent;
+    --bg-main: var(--vscode-editor-background); /* 에디터 배경색과 동기화 */
     --accent: #7c3aed;
     --accent-hover: #6d28d9;
-    --text-primary: #e2e8f0;
-    --text-secondary: #94a3b8;
+    --text-primary: var(--vscode-editor-foreground); /* 에디터 글자색과 동기화 */
+    --text-secondary: var(--vscode-descriptionForeground);
     --glass: rgba(255, 255, 255, 0.03);
-    --border: rgba(124, 58, 237, 0.6); /* 보라색 테두리, 투명도 60% */
-    --msg-user: rgba(124, 58, 237, 0.15);
-    --msg-ai: rgba(255, 255, 255, 0.03);
-    --input-bg: rgba(15, 23, 42, 0.8);
+    --border: rgba(124, 58, 237, 0.4);
+    --msg-user: rgba(124, 58, 237, 0.1);
+    --msg-ai: var(--vscode-sideBar-background);
+    --input-bg: var(--vscode-input-background);
 }
 
 * {
