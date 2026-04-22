@@ -16,10 +16,24 @@ window.addEventListener('message', event => {
 const OLLAMA_API = 'http://localhost:11434/api/generate';
 const MODEL_NAME = 'gemma4:e4b';
 
-// Auto-resize textarea
+// Auto-resize textarea and dynamic border radius
 userInput.addEventListener('input', () => {
     userInput.style.height = 'auto';
-    userInput.style.height = userInput.scrollHeight + 'px';
+    const newHeight = userInput.scrollHeight;
+    userInput.style.height = newHeight + 'px';
+    
+    // Dynamic border-radius logic
+    const wrapper = document.querySelector('.input-wrapper');
+    const baseHeight = 46;
+    const maxDecrease = 15; // 최대 15px 감소
+    
+    // 높이가 증가할수록 라운딩 감소 (최소 8px까지)
+    let newRadius = 23 - Math.min(maxDecrease, (newHeight - baseHeight) / 4);
+    if (newHeight > baseHeight) {
+        wrapper.style.borderRadius = `${newRadius}px`;
+    } else {
+        wrapper.style.borderRadius = '23px';
+    }
 });
 
 // Check Ollama Status

@@ -132,7 +132,7 @@ body {
     align-items: center;
     min-height: 46px;
     gap: 12px;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, border-radius 0.3s ease; /* 라운딩 변화 부드럽게 */
     box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.6);
 }
 
